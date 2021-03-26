@@ -15,7 +15,7 @@ Base.metadata.create_all(bind=engine)
 from routes import (inventory)
 
 app = FastAPI(
-    title='Duka Inventory Service',
+    title='Duka-Inventory Service',
     version='0.0.1',
     description='endpoints for Duka ',
     redoc_url='/',
