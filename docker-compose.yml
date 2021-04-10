@@ -3,7 +3,7 @@ services:
     api:
         build: .
         command: uvicorn main:app --reload --workers 1 --host 138.68.189.32  --port 8006
-        container_name: sportsgeek-api
+        container_name: duka-inventory-service
         restart: always
         ports: 
             - 8006:80
