@@ -7,7 +7,7 @@ parameters = pika.ConnectionParameters(host='138.68.189.32',port=5672, credentia
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
-channel.queue_declare(queue='duka-inv-queue')
+channel.queue_declare(queue='duka-inv-queue', durable=True)
 
 def send_log_to_queue(message: str):
     channel.basic_publish(
