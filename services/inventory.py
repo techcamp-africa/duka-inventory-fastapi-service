@@ -10,6 +10,8 @@ from typing import List
 from schema import inventory
 # models
 from models.inventory import Inventory
+# rabbitMQ sender
+from rabbitmq.sender import send_log_to_queue
 
 class InventoryService:
 
@@ -18,23 +20,27 @@ class InventoryService:
         """create a new inventory"""
         # check inventory title exists
         if Inventory.check_title_exists(title=payload.title, db=db):
+            send_log_to_queue('Failed Save Inventory')
             raise HTTPException(status_code=409, detail="the inventory already exists")
 
         # add the inventory
         record = Inventory(
             public_id=str(uuid.uuid4()),
-            title=payload.title,
+            title=payload.title.strip().title(),
             isbn_no=payload.isbn_no,
             buying_price=payload.buying_price,
             selling_price=payload.selling_price
         )
         created_record = record.create(db=db)
+        send_log_to_queue('Successfully Save Inventory Record')
+        
 
         return created_record
 
     @classmethod
     def get_all_inventories(cls, db: Session):
         """"return a list of all inventories"""
+        send_log_to_queue('All Inventory Fetched')
         return Inventory.fetch_all(db=db)
 
     @classmethod
@@ -42,6 +48,8 @@ class InventoryService:
         """"get an inventory that matches the id"""
         if not Inventory.fetch_inventory_byID(inventory_id=inventory_id, db=db):
             raise HTTPException(status_code=400, detail="the inventory does not exists")
+        
+        send_log_to_queue(f'Inventory Fetched with ID {inventory_id}')
 
         return Inventory.fetch_inventory_byID(inventory_id=inventory_id, db=db)
 
