@@ -2,24 +2,8 @@ version: '3'
 services: 
     api:
         build: .
-        command: uvicorn main:app --reload --workers 1 --host 0.0.0.0  --port 8001
+        command: uvicorn main:app --reload --workers 1 --host 0.0.0.0  --port 8000
         container_name: duka-inventory-service
         restart: always
         ports: 
-            - 8001:80
-    
-    rabbitmq:
-        image: rabbitmq:3-management-alpine
-        container_name: 'rabbitmq'
-        ports:
-            - 5673:5673
-            - 15673:15673
-        volumes:
-            - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-        networks:
-            - rabbitmq_go_net
-
-networks:
-    rabbitmq_go_net:
-        driver: bridge       
+            - 8000:80
