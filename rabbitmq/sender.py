@@ -18,4 +18,4 @@ def send_log_to_queue(message: str):
 
     print(" [x] Sent 'Hello World!'")
 
-connection.close()
+# connection.close()
