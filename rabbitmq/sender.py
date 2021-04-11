@@ -1,10 +1,11 @@
 import pika
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+credentials = pika.PlainCredentials('guest', 'guest')
+
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',credentials))
 channel = connection.channel()
 
-credentials = pika.PlainCredentials('guest', 'guest')
-channel.queue_declare(queue='duka-inv-queue', credentials)
+channel.queue_declare(queue='duka-inv-queue')
 
 def send_log_to_queue(message: str):
     channel.basic_publish(
