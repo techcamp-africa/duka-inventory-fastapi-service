@@ -3,7 +3,7 @@ import pika
 credentials = pika.PlainCredentials('duka', 'Fuckyou31')
 
 
-parameters = pika.ConnectionParameters(host='138.68.189.32',port=5672,virtual_host='/', credentials=credentials)
+parameters = pika.ConnectionParameters(host='138.68.189.32',port=5672, credentials=credentials)
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
@@ -16,4 +16,6 @@ def send_log_to_queue(message: str):
         body=message
     )
 
-print(" [x] Sent 'Hello World!'")
+    print(" [x] Sent 'Hello World!'")
+
+connection.close()
