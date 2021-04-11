@@ -2,7 +2,7 @@ import pika
 
 credentials = pika.PlainCredentials('guest', 'guest')
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',5672,'/',credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters('127.0.0.1',5672,'/',credentials))
 channel = connection.channel()
 
 channel.queue_declare(queue='duka-inv-queue')
