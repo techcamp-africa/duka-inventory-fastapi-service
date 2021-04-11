@@ -14,5 +14,4 @@ def send_log_to_queue(message: str):
         body=message
     )
 
-connection.close()
 print(" [x] Sent 'Hello World!'")
