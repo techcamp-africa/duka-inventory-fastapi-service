@@ -2,7 +2,7 @@ import pika
 
 credentials = pika.PlainCredentials('guest', 'guest')
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('rabbit-server1',5672,'/', credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',15672,'/', credentials))
 channel = connection.channel()
 
 channel.queue_declare(queue='duka-inv-queue')
