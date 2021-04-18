@@ -19,23 +19,26 @@ class InventoryService:
     def add_inventory(cls, payload: inventory.InventoryPost, db: Session):
         """create a new inventory"""
         # check inventory title exists
-        if Inventory.check_title_exists(title=payload.title, db=db):
+    
+        # if Inventory.check_title_exists(title=payload.title, db=db):
+        #     raise HTTPException(status_code=409, detail="the inventory already exists")
+
+        try:
+            # add the inventory
+            record = Inventory(
+                public_id=str(uuid.uuid4()),
+                title=payload.title.strip().title(),
+                isbn_no=payload.isbn_no,
+                buying_price=payload.buying_price,
+                selling_price=payload.selling_price
+            )
+            created_record = record.create(db=db)
+            send_log_to_queue('Successfully Save Inventory Record')
+            return created_record
+        except Exception as e:
             send_log_to_queue('Failed Save Inventory')
-            raise HTTPException(status_code=409, detail="the inventory already exists")
+            raise HTTPException(status_code=500, detail='Server Error')
 
-        # add the inventory
-        record = Inventory(
-            public_id=str(uuid.uuid4()),
-            title=payload.title.strip().title(),
-            isbn_no=payload.isbn_no,
-            buying_price=payload.buying_price,
-            selling_price=payload.selling_price
-        )
-        created_record = record.create(db=db)
-        send_log_to_queue('Successfully Save Inventory Record')
-        
-
-        return created_record
 
     @classmethod
     def get_all_inventories(cls, db: Session):
