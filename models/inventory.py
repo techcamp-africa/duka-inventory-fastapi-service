@@ -9,7 +9,7 @@ class Inventory(Model, Base):
     __tablename__ = 'inventories'
     public_id = Column(String, nullable=False, unique=True)
     id = Column(Integer, nullable=False, primary_key=True)
-    title = Column(String, nullable=False, unique=True)
+    title = Column(String, nullable=False, unique=False)
     isbn_no = Column(String, nullable=False)
     buying_price = Column(Float, nullable=False)
     selling_price = Column(Float, nullable=False)
