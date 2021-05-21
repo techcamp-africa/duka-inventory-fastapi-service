@@ -19,7 +19,6 @@ app = FastAPI(
     version='0.0.1',
     description='endpoints for Duka ',
     redoc_url='/',
-
 )
 
 # setup the origins
