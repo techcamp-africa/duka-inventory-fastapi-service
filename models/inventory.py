@@ -13,6 +13,7 @@ class Inventory(Model, Base):
     isbn_no = Column(String, nullable=False)
     buying_price = Column(Float, nullable=False)
     selling_price = Column(Float, nullable=False)
+    uid = Column(String, nullable=False)
     status = Column(Integer, default=1 , nullable=False) #1 - visible
     created_at = Column(DateTime(timezone=True), default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), nullable=True)
