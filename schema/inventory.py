@@ -9,7 +9,7 @@ class InventoryBase(BaseModel):
     selling_price: float
 
 class InventoryPost(InventoryBase):
-    pass
+    uid: str
 
 class InventoryPut(BaseModel):
     title: Optional[str]
@@ -21,6 +21,7 @@ class InventoryPut(BaseModel):
 class Inventory(InventoryBase):
     id: int
     public_id: str
+    uid: str
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 

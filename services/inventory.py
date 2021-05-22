@@ -30,7 +30,8 @@ class InventoryService:
                 title=payload.title.strip().title(),
                 isbn_no=payload.isbn_no,
                 buying_price=payload.buying_price,
-                selling_price=payload.selling_price
+                selling_price=payload.selling_price,
+                uid=payload.uid
             )
             created_record = record.create(db=db)
             send_log_to_queue('Successfully Save Inventory Record')
