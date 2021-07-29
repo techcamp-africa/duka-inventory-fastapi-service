@@ -9,7 +9,7 @@ from models.inventory import Inventory
 # create all tables
 Base.metadata.create_all(bind=engine)
 # drop all tables
-# Base.metadata.drop_all(bind=engine)
+#Base.metadata.drop_all(bind=engine)
 
 # routes
 from routes import (inventory)
