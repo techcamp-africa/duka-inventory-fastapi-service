@@ -35,7 +35,7 @@ async def post_inventory(
     return InventoryService.add_inventory(payload, db)
 
 # GET
-@router.get('',
+@router.get('/all',
 summary="Get all inventories",
 response_model=List[inventory.Inventory],
 response_description = "A list of inventories",
@@ -47,7 +47,7 @@ async def get_inventories(
     return InventoryService.get_all_inventories(db)
 
 # GET -> /:id
-@router.get('/{inventory_id}',
+@router.get('/id/{inventory_id}',
 summary="Get an inventory by ID",
 response_model=inventory.Inventory,
 response_description = "The inventory",
@@ -59,12 +59,34 @@ async def inventory_byID(
 ):
     return InventoryService.get_inventory_byID(inventory_id, db)
 
-@router.put('/{inventory_id}',
+
+# GET -> /:Uid
+@router.get('/{uid}',
+summary="Get an inventory by UID",
+response_model=List[inventory.Inventory],
+response_description = "The inventory Per UID",
+status_code = 200
+)
+async def inventory_byID(
+    uid: str,
+    db: Session = Depends(get_db)
+):
+
+  
+    return  InventoryService.get_inventory_byUID(uid, db)
+
+
+
+
+@router.put('/update/{inventory_id}',
 summary="update an inventory by ID",
 response_model=inventory.Inventory,
 response_description = "The updated inventory",
 status_code = 200
 )
+
+
+
 async def update(
     inventory_id: int,
     payload: inventory.InventoryPut,

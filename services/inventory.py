@@ -57,6 +57,23 @@ class InventoryService:
 
         return Inventory.fetch_inventory_byID(inventory_id=inventory_id, db=db)
 
+
+#  UID
+    @classmethod
+    def get_inventory_byUID(cls, uid: str, db: Session):
+        """"get an inventory that matches the uid"""
+        if not Inventory.fetch_inventory_byUID(uid=uid, db=db):
+            raise HTTPException(status_code=400, detail="the inventory does not exists")
+        
+        send_log_to_queue(f'Inventory Fetched with UID {uid}')
+
+        return Inventory.fetch_inventory_byUID(uid=uid, db=db)
+
+
+
+
+
+
     @classmethod
     def update_inventory(cls,inventory_id: int, payload: inventory.InventoryPut, db:Session):
         """update an inventory"""

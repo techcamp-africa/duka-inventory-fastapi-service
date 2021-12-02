@@ -6,6 +6,7 @@ from configurations.base_config import settings
 
 # create an engine
 engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, echo=True)
+# engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, echo=True)
 
 # 
 """

@@ -27,3 +27,7 @@ class Inventory(Model, Base):
     @classmethod
     def fetch_inventory_byID(cls, inventory_id: int, db: Session):
         return db.query(cls).filter(cls.id == inventory_id).first()
+
+    @classmethod
+    def fetch_inventory_byUID(cls, uid: str, db: Session):
+        return db.query(cls).filter(cls.uid == uid).all()
